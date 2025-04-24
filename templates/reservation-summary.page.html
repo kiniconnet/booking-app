@@ -1,0 +1,88 @@
+{{template "base" .}}
+
+{{define "css"}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="/static/css/reservation.css">
+{{end}}
+
+{{define "content"}}
+{{$reservation := index .Data "reservation"}}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="reservation-card">
+                <!-- Reservation Header -->
+                <div class="reservation-header text-center">
+                    <h2><i class="fas fa-calendar-alt mr-2"></i>Reservation Summary</h2>
+                </div>
+
+                <!-- Reservation Body -->
+                <div class="reservation-body">
+                    <div class="reservation-row">
+                        <div class="reservation-label d-flex align-items-center">
+                            <i class="fas fa-user-circle reservation-icon"></i>
+                            Guest Information
+                        </div>
+                        <div class="reservation-value">
+                            {{$reservation.FirstName}} {{$reservation.LastName}}
+                        </div>
+                    </div>
+                    <div class="reservation-row">
+                        <div class="reservation-label d-flex align-items-center">
+                            <i class="fas fa-envelope reservation-icon"></i>
+                            Email Address
+                        </div>
+                        <div class="reservation-value">
+                            {{$reservation.Email}}
+                        </div>
+                    </div>
+                    <div class="reservation-row">
+                        <div class="reservation-label d-flex align-items-center">
+                            <i class="fas fa-phone reservation-icon"></i>
+                            Contact Number
+                        </div>
+                        <div class="reservation-value">
+                            {{$reservation.Phone}}
+                        </div>
+                    </div>
+                    <div class="reservation-row">
+                        <div class="reservation-label d-flex align-items-center">
+                            <i class="fas fa-bed reservation-icon"></i>
+                            Room Selection
+                        </div>
+                        <div class="reservation-value">
+                            {{$reservation.Room.RoomName}}
+                        </div>
+                    </div>
+                    <div class="reservation-row">
+                        <div class="reservation-label d-flex align-items-center">
+                            <i class="fas fa-calendar-check reservation-icon"></i>
+                            Check-in Date
+                        </div>
+                        <div class="reservation-value">
+                            {{$reservation.ArrivalDate}}
+                        </div>
+                    </div>
+                    <div class="reservation-row">
+                        <div class="reservation-label d-flex align-items-center">
+                            <i class="fas fa-calendar-times reservation-icon"></i>
+                            Check-out Date
+                        </div>
+                        <div class="reservation-value">
+                            {{$reservation.DepartureDate}}
+                        </div>
+                    </div>
+
+                    <!-- Action Button -->
+                    <div class="text-center mt-5">
+                        <a href="/" class="btn btn-reservation">
+                            <i class="fas fa-home mr-2"></i>
+                            <span>Return to Home</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{end}}
