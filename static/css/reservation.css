@@ -1,5 +1,27 @@
  
+/* Root Variables */
+:root {
+    --primary-dark: #03624c;
+    --primary-light: #2cc395;
+    --accent: #00df82;
+    --background: #f8fbff;
+    --text-dark: #042222;
+    --text-light: #ffe4d0;
+    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    --hover-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    --gradient-primary: linear-gradient(135deg, #03624c, #2cc395);
+    --gradient-accent: linear-gradient(135deg, #2cc395, #00df82);
+}
 
+/* Global Styles */
+body {
+    background-color: var(--background);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    color: var(--text-dark);
+}
  
 /* Reservation Card */
 .reservation-card {
@@ -202,4 +224,99 @@
         width: 100%;
         padding: 0.875rem 1.5rem;
     }
+}
+
+
+
+
+/* Container Styling */
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+/* Form Styling */
+form {
+    background: var(--background);
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    padding: 2rem;
+    transition: box-shadow 0.3s ease;
+}
+
+form:hover {
+    box-shadow: var(--hover-shadow);
+}
+
+/* Heading Styling */
+h1 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary-dark);
+    margin-bottom: 2rem;
+}
+
+/* Labels */
+label {
+    font-weight: 600;
+    color: var(--primary-dark);
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+/* Input Fields */
+.form-control {
+    border: 1px solid var(--primary-dark);
+    border-radius: 8px;
+    padding: 0.75rem;
+    font-size: 0.95rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+}
+
+.form-control:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 5px rgba(0, 223, 130, 0.5);
+    outline: none;
+}
+
+.is-invalid {
+    border-color: #dc3545 !important;
+}
+
+.text-danger {
+    font-size: 0.85rem;
+    color: #dc3545;
+    margin-top: 0.25rem;
+    display: block;
+}
+
+/* Horizontal Line */
+hr {
+    border: 0;
+    height: 1px;
+    background: var(--primary-dark);
+    opacity: 0.1;
+    margin: 2rem 0;
+}
+
+/* Submit Button */
+.btn-primary {
+    background: var(--gradient-primary);
+    border: none;
+    color: var(--text-light);
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    width: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--hover-shadow);
 }

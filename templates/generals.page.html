@@ -71,52 +71,10 @@
             </div>
         </form>
         `;
-
-                
         attention.custom({
             title: 'Choose your dates',
             msg: html,
-            willOpen: () => {
-                const elem = document.getElementById("reservation-dates-modal");
-                const rp = new DateRangePicker(elem, {
-                    format: 'yyyy-mm-dd',
-                    showOnFocus: true,
-                })
-            },
-            didOpen: () => {
-                document.getElementById("start").removeAttribute("disabled");
-                document.getElementById("end").removeAttribute("disabled");
-            },
-            callback: function (result) {
-                console.log(result.value);
-
-                let formData = new FormData(document.getElementById("check-availability-form"));
-                formData.append("csrf_token", "{{.CSRFToken}}");
-
-                console.log(formData);
-                fetch("/search-availability-json", {
-                    method: "post",
-                    body: formData,
-                    headers: {
-                        "X-CSRF-Token": "{{.CSRFToken}}"
-                    }
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log(data);
-                    console.log(data.message);
-                    console.log(data.ok);
-                })
-                .catch(error => {
-                    console.error('There was a problem with the fetch operation:', error);
-                });
-            }
         });
-    });
+    })
 </script>
 {{end}}

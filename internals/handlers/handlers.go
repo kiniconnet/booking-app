@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/tsawler/bookings-app/internals/config"
-	"github.com/tsawler/bookings-app/internals/forms"
-	"github.com/tsawler/bookings-app/internals/models"
-	"github.com/tsawler/bookings-app/internals/render"
+	"github.com/kiniconnect/booking-app/internals/config"
+	"github.com/kiniconnect/booking-app/internals/forms"
+	"github.com/kiniconnect/booking-app/internals/models"
+	"github.com/kiniconnect/booking-app/internals/render"
 )
 
 // Repo the repository used by the handlers
@@ -109,6 +109,9 @@ func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 // ReservationSummary renders the reservation summary page
 func (m *Repository) ReservationSummary(w http.ResponseWriter, r *http.Request) {
 	reservation, ok := m.App.Session.Get(r.Context(), "reservation").(models.Reservation)
+
+	// remove reservation from session
+	defer m.App.Session.Remove(r.Context(), "reservation")
 	if !ok {
 		m.App.Session.Put(r.Context(), "error", "Can't get reservation from session")
 		http.Redirect(w, r, "/", http.StatusTemporaryRedirect)

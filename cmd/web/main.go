@@ -1,17 +1,15 @@
 package main
 
 import (
-	"encoding/gob"
 	"fmt"
 	"log"
 	"net/http"
 	"time"
 
 	"github.com/alexedwards/scs/v2"
-	"github.com/tsawler/bookings-app/internals/config"
-	"github.com/tsawler/bookings-app/internals/handlers"
-	"github.com/tsawler/bookings-app/internals/models"
-	"github.com/tsawler/bookings-app/internals/render"
+	"github.com/kiniconnect/booking-app/internals/config"
+	"github.com/kiniconnect/booking-app/internals/handlers"
+	"github.com/kiniconnect/booking-app/internals/render"
 )
 
 const portNumber = ":8080"
@@ -21,9 +19,6 @@ var session *scs.SessionManager
 
 // main is the main function
 func main() {
-
-	gob.Register(models.Reservation{})
-
 	// change this to true when in production
 	app.InProduction = false
 
@@ -38,7 +33,7 @@ func main() {
 
 	tc, err := render.CreateTemplateCache()
 	if err != nil {
-		log.Fatal("cannot create template cache:", err)
+		log.Fatal("cannot create template cache")
 	}
 
 	app.TemplateCache = tc

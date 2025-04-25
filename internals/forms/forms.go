@@ -61,8 +61,8 @@ func (f *Form) Email(field string, r *http.Request) bool {
 	x := r.Form.Get(field)
 
 	if !govalidator.IsEmail(x) {
-		f.Errors.Add(field, "Invalid email address")
+		f.Errors.Add(field, fmt.Sprintf("Invalid email address: %s", x))
 		return false
-	}  
+	}
 	return true
 }
