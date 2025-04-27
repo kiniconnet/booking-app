@@ -1,32 +1,165 @@
 {{template "base" .}}
 
+{{define "css"}}
+    <link rel="stylesheet" href="static/css/home.css">
+{{end}}
+
 {{define "content"}}
-   
-
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <h1 class="text-center mt-4">Welcome to Fort Smythe Bed and Breakfast</h1>
-                <p>
-                    Your home away form home, set on the majestic waters of the Atlantic Ocean, this will be a vacation to remember.
-                    Your home away form home, set on the majestic waters of the Atlantic Ocean, this will be a vacation to remember.
-                    Your home away form home, set on the majestic waters of the Atlantic Ocean, this will be a vacation to remember.
-                    Your home away form home, set on the majestic waters of the Atlantic Ocean, this will be a vacation to remember.
-                    Your home away form home, set on the majestic waters of the Atlantic Ocean, this will be a vacation to remember.
-                    Your home away form home, set on the majestic waters of the Atlantic Ocean, this will be a vacation to remember.
-                </p>
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Find Your Perfect Short-Term Rental</h1>
+            <p>Discover comfortable, affordable accommodations in prime locations. Book now and enjoy a hassle-free stay with premium amenities.</p>
+        </section>
+        
+        <!-- Booking Form -->
+        <section class="booking-form">
+            <form>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="destination">Destination</label>
+                        <input type="text" id="destination" placeholder="Where are you going?">
+                    </div>
+                    <div class="form-group">
+                        <label for="check-in">Check In</label>
+                        <input type="date" id="check-in">
+                    </div>
+                    <div class="form-group">
+                        <label for="check-out">Check Out</label>
+                        <input type="date" id="check-out">
+                    </div>
+                    <div class="form-group">
+                        <label for="guests">Guests</label>
+                        <select id="guests">
+                            <option value="1">1 Guest</option>
+                            <option value="2">2 Guests</option>
+                            <option value="3">3 Guests</option>
+                            <option value="4">4 Guests</option>
+                            <option value="5+">5+ Guests</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary">Search Availability</button>
+            </form>
+        </section>
+        
+        <!-- Features -->
+        <section class="features">
+            <h2 class="section-title">Why Choose HomeRent?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class='bx bx-check-shield'></i>
+                    </div>
+                    <h3>Verified Properties</h3>
+                    <p>Every listing is personally verified to ensure quality and accuracy.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class='bx bx-star'></i>
+                    </div>
+                    <h3>Premium Amenities</h3>
+                    <p>Enjoy high-speed WiFi, fully-equipped kitchens, and luxury linens.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class='bx bx-support'></i>
+                    </div>
+                    <h3>24/7 Support</h3>
+                    <p>Our team is available around the clock to assist you.</p>
+                </div>
             </div>
-        </div>
-
-
-        <div class="row">
-
-            <div class="col text-center">
-
-                <a href="/make-reservation" class="btn btn-success">Make Reservation Now</a>
-
+        </section>
+        
+        <!-- Popular Rooms -->
+        <section class="rooms">
+            <h2 class="section-title">Our Popular Rentals</h2>
+            <div class="rooms-grid">
+                <div class="room-card">
+                    <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Modern Apartment" class="room-img">
+                    <div class="room-info">
+                        <h3>Modern Downtown Apartment</h3>
+                        <div class="room-price">$120/night</div>
+                        <div class="room-features">
+                            <span><i class='bx bx-bed'></i> 2 beds</span>
+                            <span><i class='bx bx-bath'></i> 1 bath</span>
+                            <span><i class='bx bx-user'></i> 4 guests</span>
+                        </div>
+                        <button class="btn-primary">Book Now</button>
+                    </div>
+                </div>
+                <div class="room-card">
+                    <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cozy Studio" class="room-img">
+                    <div class="room-info">
+                        <h3>Cozy City Center Studio</h3>
+                        <div class="room-price">$85/night</div>
+                        <div class="room-features">
+                            <span><i class='bx bx-bed'></i> 1 bed</span>
+                            <span><i class='bx bx-bath'></i> 1 bath</span>
+                            <span><i class='bx bx-user'></i> 2 guests</span>
+                        </div>
+                        <button class="btn-primary">Book Now</button>
+                    </div>
+                </div>
+                <div class="room-card">
+                    <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Luxury Penthouse" class="room-img">
+                    <div class="room-info">
+                        <h3>Luxury Waterfront Penthouse</h3>
+                        <div class="room-price">$250/night</div>
+                        <div class="room-features">
+                            <span><i class='bx bx-bed'></i> 3 beds</span>
+                            <span><i class='bx bx-bath'></i> 2 baths</span>
+                            <span><i class='bx bx-user'></i> 6 guests</span>
+                        </div>
+                        <button class="btn-primary">Book Now</button>
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
+        
+        <!-- Testimonials -->
+        <section class="testimonials">
+            <h2 class="section-title">What Our Guests Say</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"The apartment was even better than the photos! Perfect location and the host was incredibly responsive. Will definitely book again."</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah J." class="author-img">
+                        <div class="author-info">
+                            <h4>Sarah J.</h4>
+                            <p>Business Traveler</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"HomeRent made our family vacation so easy. The place was spotless and had everything we needed. 5 stars!"</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Michael T." class="author-img">
+                        <div class="author-info">
+                            <h4>Michael T.</h4>
+                            <p>Family Vacation</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"As a digital nomad, I rely on HomeRent for comfortable, WiFi-ready spaces. Never been disappointed!"</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Priya K." class="author-img">
+                        <div class="author-info">
+                            <h4>Priya K.</h4>
+                            <p>Digital Nomad</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Call to Action -->
+        <section class="cta">
+            <h2>Ready for Your Next Adventure?</h2>
+            <p>Join thousands of satisfied guests who've found their perfect temporary home with HomeRent.</p>
+            <button class="btn-secondary">Browse All Properties</button>
+        </section>
+    </main>
 
-    </div>
 {{end}}
