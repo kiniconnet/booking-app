@@ -1,0 +1,60 @@
+{{template "base" .}}
+
+{{define "css"}} 
+    <link rel="stylesheet" href="/static/css/rooms.css">
+{{end}}
+
+
+{{define "content"}}
+<!-- Golang variable -->
+{{$res := index .Data "reservation"}}
+{{$eventType := "EventType"}}
+{{$startDate := "StartDate"}}
+{{$endDate := "EndDate"}}
+<div class="summary-container">
+    <div class="summary-card">
+        <div class="summary-header">
+            <h1>Booking Confirmation</h1>
+            <p>Your reservation has been successfully submitted</p>
+        </div>
+        
+        <div class="summary-body">
+            <div class="confirmation-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+            </div>
+            
+            <div class="booking-details">
+                <h2 style="margin-top: 0; margin-bottom: 1.5rem; color: var(--primary);">Reservation Details</h2>
+                
+                <div class="detail-row">
+                    <div class="detail-label">Full Name</div>
+                    <div class="detail-value">{{$res.FirstName}} {{$res.LastName}}</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">Email Address</div>
+                    <div class="detail-value">{{$res.Email}}</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">Phone Number</div>
+                    <div class="detail-value">{{$res.Phone}}</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">Event Type</div>
+                    <div class="detail-value">{{$eventType}}</div>
+                </div>
+            </div>
+            
+            <div class="actions">
+                <a href="/" class="btn btn-secondary">Back to Home</a>
+                <a href="/make-reservation" class="btn btn-primary">Book Another Stay</a>
+            </div>
+        </div>
+    </div>
+</div>
+{{end}}

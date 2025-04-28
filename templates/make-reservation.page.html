@@ -14,6 +14,9 @@
 
 {{$title := "Make Reservation"}}
 {{$subtitle := "Complete your booking in just a few steps"}}
+{{$res := index .Data "reservation"}}
+ 
+ 
  
 <div class="reservation-container">
     <div class="reservation-header">
@@ -31,7 +34,7 @@
             {{end}}
             <input class="form-control"
                    id="first_name" autocomplete="given-name" type='text'
-                   name='first_name' value="" required>
+                   name='first_name' value="{{$res.FirstName}}" required>
         </div>
 
         <div class="form-group">
@@ -41,7 +44,7 @@
             {{end}}
             <input class="form-control"
                    id="last_name" autocomplete="family-name" type='text'
-                   name='last_name' value="" required>
+                   name='last_name' value="{{$res.LastName}}" required>
         </div>
 
         <div class="form-group">
@@ -51,7 +54,7 @@
             {{end}}
             <input class="form-control" id="email"
                    autocomplete="email" type='email'
-                   name='email' value="" required>
+                   name='email' value="{{$res.Email}}" required>
         </div>
 
         <div class="form-group">
@@ -61,7 +64,7 @@
             {{end}}
             <input class="form-control" id="phone"
                    autocomplete="tel" type='tel'
-                   name='phone' value="" required>
+                   name='phone' value="{{$res.Phone}}" required>
         </div>
 
         <hr class="form-divider">

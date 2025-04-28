@@ -1,14 +1,4 @@
-:root {
-    --primary-color: #03624c;
-    --primary-light: #2cc295;
-    --accent-color: #ffed0d;
-    --dark-color: #042222;
-    --light-bg: #f8fbff;
-    --error-color: #e63946;
-    --text-color: #333333;
-    --border-color: #e0e0e0;
-}
-
+ 
 
 .room-container {
     max-width: 1200px;
@@ -188,7 +178,7 @@
     border: 1px solid var(--border-color);
     border-radius: 8px;
     transition: all 0.3s ease;
-    background-color: var(--light-bg);
+    background-color: var(--gray-medium);
 }
 
 .form-control:focus {
@@ -212,8 +202,8 @@
 }
 
 .submit-btn {
-    background-color: var(--primary-color);
-    color: white;
+    background-color: var(--primary);
+    color: var(primary-dark);
     border: none;
     padding: 1rem 2rem;
     font-size: 1.1rem;
@@ -227,7 +217,7 @@
 }
 
 .submit-btn:hover {
-    background-color: var(--primary-light);
+    background-color: var(--primary);
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
@@ -254,5 +244,152 @@
     
     .form-control {
         padding: 0.7rem;
+    }
+}
+
+
+
+
+/* ======= SUMMARY PAGE  ======= */
+:root {
+    --primary: #03624c;
+    --primary-light: #2cc295;
+    --accent: #ffed0d;
+    --dark: #042222;
+    --light: #f8fbff;
+    --text: #2d3436;
+    --border: #dfe6e9;
+}
+
+.summary-container {
+    max-width: 800px;
+    margin: 3rem auto;
+    padding: 0 1.5rem;
+    font-family: 'Inter', -apple-system, sans-serif;
+}
+
+.summary-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.summary-header {
+    background: var(--primary);
+    color: white;
+    padding: 2rem;
+    text-align: center;
+}
+
+.summary-header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+}
+
+.summary-header p {
+    font-size: 1rem;
+    opacity: 0.9;
+    margin: 0;
+}
+
+.summary-body {
+    padding: 2rem;
+}
+
+.confirmation-icon {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.confirmation-icon svg {
+    width: 80px;
+    height: 80px;
+    color: var(--primary);
+}
+
+.booking-details {
+    background: var(--light);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.detail-row {
+    display: flex;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    flex: 0 0 180px;
+    font-weight: 500;
+    color: var(--text);
+}
+
+.detail-value {
+    flex: 1;
+    color: var(--dark);
+}
+
+.actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.btn {
+    padding: 0.9rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.3s ease;
+    flex: 1;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--primary-light);
+    color: var(--gray-light);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: white;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+}
+
+.btn-secondary:hover {
+    background: var(--light);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .summary-container {
+        padding: 0 1rem;
+    }
+    
+    .detail-row {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .detail-label {
+        flex: 1;
+    }
+    
+    .actions {
+        flex-direction: column;
     }
 }

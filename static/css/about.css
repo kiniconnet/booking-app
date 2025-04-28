@@ -1,17 +1,4 @@
-
-    /* About Page Styles */
-    :root {
-        --primary-dark: #03624c;
-        --primary: #00df82;
-        --primary-light: #2cc295;
-        --background: #f8fbff;
-        --dark: #042222;
-        --accent: #ffed0d;
-        --white: #ffffff;
-        --gray-light: #f5f5f5;
-        --text-color: #333333;
-    }
-
+ 
     .about-container {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         color: var(--text-color);

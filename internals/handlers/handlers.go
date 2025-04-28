@@ -92,7 +92,7 @@ func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 	form.Email("email", r)
 
 	if !form.Valid() {
-		data := make(map[string]interface{})
+		data := make(map[string]any)
 		data["reservation"] = reservation
 
 		render.RenderTemplate(w, r, "make-reservation.page.html", &models.TemplateData{
@@ -106,6 +106,7 @@ func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/reservation-summary", http.StatusSeeOther)
 
 }
+
 
 // ReservationSummary renders the reservation summary page
 func (m *Repository) ReservationSummary(w http.ResponseWriter, r *http.Request) {
