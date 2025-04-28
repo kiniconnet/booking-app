@@ -418,7 +418,6 @@ a:hover {
 .mobile-nav-list {
   display: flex;
   justify-content: space-around;
-  padding: 0.5rem 0;
   margin: 0;
 }
 
@@ -436,7 +435,6 @@ a:hover {
   color: var(--background);
   text-decoration: none;
   font-size: 0.8rem;
-  padding: 0.5rem;
   transition: all 0.3s ease;
 }
 
