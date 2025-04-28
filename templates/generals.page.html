@@ -1,52 +1,47 @@
 {{template "base" .}}
 
+{{define "css"}}
+<link rel="stylesheet" href="/static/css/rooms.css">
+{{end}}
+
+ 
+
 {{define "content"}}
-
-    <div class="container">
-
-
-        <div class="row">
-            <div class="col">
-                <img src="/static/images/generals-quarters.png"
-                     class="img-fluid img-thumbnail mx-auto d-block room-image" alt="room image">
-            </div>
-        </div>
-
-
-        <div class="row">
-            <div class="col">
-                <h1 class="text-center mt-4">General's Quarters</h1>
-                <p>
-                    Your home away form home, set on the majestic waters of the Atlantic Ocean, this will be a vacation
-                    to remember.
-                    Your home away form home, set on the majestic waters of the Atlantic Ocean, this will be a vacation
-                    to remember.
-                    Your home away form home, set on the majestic waters of the Atlantic Ocean, this will be a vacation
-                    to remember.
-                    Your home away form home, set on the majestic waters of the Atlantic Ocean, this will be a vacation
-                    to remember.
-                    Your home away form home, set on the majestic waters of the Atlantic Ocean, this will be a vacation
-                    to remember.
-                    Your home away form home, set on the majestic waters of the Atlantic Ocean, this will be a vacation
-                    to remember.
-                </p>
-            </div>
-        </div>
-
-
-        <div class="row">
-
-            <div class="col text-center">
-
-                <a id="check-availability-button" href="#!" class="btn btn-success">Check Availability</a>
-
-            </div>
-        </div>
-
-
-
-
+<div class="room-container">
+    <div class="room-image-container">
+        <img src="/static/images/generals-quarters.png" class="room-image" alt="General's Quarters">
     </div>
+
+    <div class="room-details">
+        <h1>General's Quarters</h1>
+        <p class="room-description">
+            Your home away from home, set on the majestic waters of the Atlantic Ocean, this will be a vacation to remember.
+            Enjoy premium amenities including a private balcony, king-sized bed, and stunning ocean views. Our luxury suite
+            features modern furnishings, high-speed WiFi, and a fully-equipped kitchenette.
+        </p>
+
+        <div class="room-features">
+            <div class="feature">
+                <i class="icon">🛏️</i>
+                <span>King Bed</span>
+            </div>
+            <div class="feature">
+                <i class="icon">🌊</i>
+                <span>Ocean View</span>
+            </div>
+            <div class="feature">
+                <i class="icon">🛁</i>
+                <span>Private Bath</span>
+            </div>
+            <div class="feature">
+                <i class="icon">📶</i>
+                <span>High-Speed WiFi</span>
+            </div>
+        </div>
+
+        <button id="check-availability-button" class="book-button">Check Availability</button>
+    </div>
+</div>
 
 {{end}}
 
@@ -55,17 +50,16 @@
 <script>
     document.getElementById("check-availability-button").addEventListener("click", function () {
         let html = `
-        <form id="check-availability-form" action="" method="post" novalidate class="needs-validation">
+        <form id="check-availability-form" class="form" action="" method="post" novalidate class="needs-validation">
             <div class="form-row">
-                <div class="col">
-                    <div class="form-row" id="reservation-dates-modal">
-                        <div class="col">
+                 <div class="col">
+                    <div class="form-group" id="reservation-dates-modal">
+                        <div class="form-input-group">
                             <input disabled required class="form-control" type="text" name="start" id="start" placeholder="Arrival">
                         </div>
-                        <div class="col">
+                        <div class="form-input-group">
                             <input disabled required class="form-control" type="text" name="end" id="end" placeholder="Departure">
                         </div>
-
                     </div>
                 </div>
             </div>

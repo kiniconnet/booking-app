@@ -7,12 +7,14 @@
     color: white;
     padding: 8rem 2rem;
     text-align: center;
+    border-radius: 2rem;
 }
 
 .hero h1 {
     font-size: 3.5rem;
     margin-bottom: 1rem;
     line-height: 1.2;
+    color: var(--background);
 }
 
 .hero p {
@@ -22,7 +24,7 @@
 }
 
 .booking-form {
-    background: white;
+    background: var(--background);
     padding: 2rem;
     border-radius: 10px;
     max-width: 1000px;
@@ -231,11 +233,13 @@
     background: linear-gradient(rgba(4, 34, 34, 0.9), rgba(4, 34, 34, 0.9));
     color: white;
     text-align: center;
+    border-radius: 2rem;
 }
 
 .cta h2 {
     margin-bottom: 1.5rem;
     font-size: 2.5rem;
+    color: var(--accent);
 }
 
 .cta p {
@@ -303,6 +307,9 @@ footer {
 }
 
 @media (max-width: 768px) {
+    .hero{
+        margin-top: 24px;
+    }
     .hero h1 {
         font-size: 2.5rem;
     }

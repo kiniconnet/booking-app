@@ -1,97 +1,109 @@
 /* CSS Starter Template with Provided Colors */
 :root {
-    /* Color Variables */
-    --primary-dark: rgb(3, 98, 76);
-    --primary: rgb(0, 223, 130);
-    --primary-light: rgb(44, 194, 149);
-    --background: #f8fbff;
-    --dark: #042222;
-    --accent: #ffed0d; /* Note: Add*/
-  }
-  
-  /* Reset & Base Styles */
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
-    background-color: var(--background);
-    color: var(--dark);
-  }
-  
-  /* Typography */
-  h1, h2, h3, h4, h5, h6 {
-    color: var(--primary-dark);
-    margin-bottom: 1rem;
-  }
-  
-  a {
-    color: var(--primary);
-    text-decoration: none;
-    transition: color 0.3s ease;
-  }
-  
-  a:hover {
-    color: var(--primary-light);
-  }
-  
-  /* Buttons */
-  .btn {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    border-radius: 4px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  .btn-primary {
-    background-color: var(--primary);
-    color: var(--dark);
-    border: 2px solid var(--primary);
-  }
-  
-  .btn-primary:hover {
-    background-color: var(--primary-light);
-    border-color: var(--primary-light);
-  }
-  
-  .btn-outline {
-    background-color: transparent;
-    color: var(--primary);
-    border: 2px solid var(--primary);
-  }
-  
-  .btn-outline:hover {
-    background-color: var(--primary);
-    color: var(--dark);
-  }
-  
-  /* Utility Classes */
-  .text-accent {
-    color: var(--accent);
-  }
-  
-  .bg-dark {
-    background-color: var(--dark);
-    color: var(--background);
-  }
-  
-  .container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
-  }
-  
-  
-  
+  /* Color Variables */
+  --primary-dark: rgb(3, 98, 76);
+  --primary: rgb(0, 223, 130);
+  --primary-light: rgb(44, 194, 149);
+  --background: #f8fbff;
+  --dark: #042222;
+  --accent: #ffed0d;
+  /* Note: Add*/
+  --white: #ffffff;
+  --gray-light: #f0f0f0;
+  --gray-medium: #e0e0e0;
+  --gray-dark: #888888;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease;
+}
+
+/* Reset & Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  background-color: var(--background);
+  color: var(--dark);
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--primary-dark);
+  margin-bottom: 1rem;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--primary-light);
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--dark);
+  border: 2px solid var(--primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-light);
+  border-color: var(--primary-light);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+
+.btn-outline:hover {
+  background-color: var(--primary);
+  color: var(--dark);
+}
+
+/* Utility Classes */
+.text-accent {
+  color: var(--accent);
+}
+
+.bg-dark {
+  background-color: var(--dark);
+  color: var(--background);
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+
+
 .datepicker {
-    z-index: 10000;
+  z-index: 10000;
 }
 
 
@@ -247,33 +259,33 @@
   color: var(--primary);
 }
 
- 
 
- 
+
+
 
 /* Responsive Design */
 @media (max-width: 768px) {
   .header {
-      display: block;
-      padding: 0.5rem 0;
+    display: block;
+    padding: 0.5rem 0;
   }
 
-  .nav{
+  .nav {
     display: none;
   }
 
   .mobile-nav {
-      display: block;
+    display: block;
   }
 
   body {
-      padding-bottom: 70px;
+    padding-bottom: 70px;
   }
 }
 
 @media (min-width: 769px) {
   .mobile-nav {
-      display: none;
+    display: none;
   }
 }
 
@@ -282,8 +294,8 @@
 
 
 
-.main-content{
-  margin-top: 80px;  
+.main-content {
+  margin-top: 80px;
   padding: 20px;
   background-color: var(--background);
 }
@@ -296,4 +308,3 @@
     margin-top: 40px;
   }
 }
-  
