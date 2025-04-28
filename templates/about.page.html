@@ -1,12 +1,126 @@
 {{template "base" .}}
 
-{{define "content"}}
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <h1>This is the about page</h1>
+{{define "css"}}
+<link rel="stylesheet" href="/static/css/about.css">
+{{end}}
 
+
+{{define "content"}}
+<div class="about-container">
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <div class="hero-content">
+            <h1>Our Story</h1>
+            <p>Discover the journey behind HomeRent and our commitment to exceptional hospitality</p>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="about-section mission">
+        <div class="section-content">
+            <div class="text-content">
+                <h2>Our Mission</h2>
+                <p>At HomeRent, we believe everyone deserves a comfortable, welcoming place to stay while away from home. 
+                Founded in 2015, we've grown from a single property to a trusted name in short-term rentals by focusing 
+                on quality, reliability, and outstanding guest experiences.</p>
+                <p>Our mission is to connect travelers with unique, well-maintained properties that feel like home, 
+                while providing owners with a seamless management solution.</p>
+            </div>
+            <div class="image-content">
+                <img src="/static/images/mission-group.avif" alt="Our team discussing property management">
             </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="about-section values">
+        <h2 class="section-title">Our Core Values</h2>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class='bx bx-heart'></i>
+                </div>
+                <h3>Guest Focus</h3>
+                <p>We prioritize your comfort and satisfaction, ensuring every stay exceeds expectations.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class='bx bx-home-alt'></i>
+                </div>
+                <h3>Quality Standards</h3>
+                <p>Every property meets our rigorous 50-point checklist before being listed.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class='bx bx-shield-alt'></i>
+                </div>
+                <h3>Trust & Safety</h3>
+                <p>Verified properties, secure payments, and 24/7 support give you peace of mind.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class='bx bx-globe'></i>
+                </div>
+                <h3>Sustainable Stays</h3>
+                <p>We promote eco-friendly practices across our properties to protect our planet.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="about-section team">
+        <h2 class="section-title">Meet Our Leadership</h2>
+        <div class="team-grid">
+            <div class="team-member">
+                <img src="/static/images/woman-laptop.png" alt="Sarah Johnson, CEO">
+                <h3>Sarah Johnson</h3>
+                <p>CEO & Founder</p>
+            </div>
+            <div class="team-member">
+                <img src="/static/images/woman-laptop.png" alt="Michael Chen, COO">
+                <h3>Michael Chen</h3>
+                <p>Chief Operations Officer</p>
+            </div>
+            <div class="team-member">
+                <img src="/static/images/woman-laptop.png" alt="Priya Patel, CMO">
+                <h3>Priya Patel</h3>
+                <p>Chief Marketing Officer</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="about-section stats">
+        <div class="stats-container">
+            <div class="stat-item">
+                <span class="stat-number">500+</span>
+                <span class="stat-label">Properties</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">98%</span>
+                <span class="stat-label">Guest Satisfaction</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">24/7</span>
+                <span class="stat-label">Support</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">50+</span>
+                <span class="stat-label">Destinations</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="about-cta">
+        <div class="cta-content">
+            <h2>Ready to Experience HomeRent?</h2>
+            <p>Join thousands of satisfied guests who've found their perfect temporary home.</p>
+            <a href="/make-reservation" class="cta-button">Book Your Stay</a>
+        </div>
+    </section>
+</div>
 {{end}}
+
+
+ 
