@@ -78,6 +78,8 @@
     transform: translateY(-2px);
 }
 
+ 
+
 .form-group {
     margin-bottom: 1.5rem;
     display: flex;
@@ -95,8 +97,28 @@
 .form-input-group input {
     width: 100%;
     padding: 0.8rem;
-    border: 1px solid var(--gray);
+    border: 1px solid var(--gray-dark);
     border-radius: 5px;
     font-size: 1rem;
-    background-color: var(--gray-light);
+    background-color: var(--gray-medium);
+}
+
+/* media Query */
+@media (max-width: 768px) {
+    .room-image {
+        height: 200px;
+    }
+
+    .room-details h1 {
+        font-size: 2rem;
+    }
+
+    .room-description {
+        font-size: 1rem;
+    }
+
+    .book-button {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
 }
