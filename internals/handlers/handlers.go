@@ -7,6 +7,7 @@ import (
 
 	"github.com/kiniconnect/booking-app/internals/config"
 	"github.com/kiniconnect/booking-app/internals/forms"
+	"github.com/kiniconnect/booking-app/internals/helpers"
 	"github.com/kiniconnect/booking-app/internals/models"
 	"github.com/kiniconnect/booking-app/internals/render"
 )
@@ -33,31 +34,21 @@ func NewHandlers(r *Repository) {
 
 // Home is the handler for the home page
 func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
-	remoteIP := r.RemoteAddr
-	m.App.Session.Put(r.Context(), "remote_ip", remoteIP)
 
 	render.RenderTemplate(w, r, "home.page.html", &models.TemplateData{})
 }
 
 // About is the handler for the about page
 func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
-	// perform some logic
-	stringMap := make(map[string]string)
-	stringMap["test"] = "Hello, again"
-
-	remoteIP := m.App.Session.GetString(r.Context(), "remote_ip")
-	stringMap["remote_ip"] = remoteIP
 
 	// send data to the template
-	render.RenderTemplate(w, r, "about.page.html", &models.TemplateData{
-		StringMap: stringMap,
-	})
+	render.RenderTemplate(w, r, "about.page.html", &models.TemplateData{})
 }
 
 // Reservation renders the make a reservation page and displays form
 func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
 	var emptyReservation models.Reservation
-	data := make(map[string]interface{})
+	data := make(map[string]any)
 	data["reservation"] = emptyReservation
 
 	render.RenderTemplate(w, r, "make-reservation.page.html", &models.TemplateData{
@@ -70,6 +61,7 @@ func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
 func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 	err := r.ParseForm()
 	if err != nil {
+		helpers.ServerError(w, err)
 		return
 	}
 
@@ -107,20 +99,20 @@ func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 
 }
 
-
 // ReservationSummary renders the reservation summary page
 func (m *Repository) ReservationSummary(w http.ResponseWriter, r *http.Request) {
 	reservation, ok := m.App.Session.Get(r.Context(), "reservation").(models.Reservation)
 
- 
 	if !ok {
 		fmt.Println("Can't get reservation from session")
 		m.App.Session.Put(r.Context(), "error", "Can't get reservation from session")
-		http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
+   		http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
 		return
 	}
 
-	data := make(map[string]interface{})
+	m.App.Session.Remove(r.Context(), "reservation")
+
+	data := make(map[string]any)
 	data["reservation"] = reservation
 
 	render.RenderTemplate(w, r, "reservation-summary.page.html", &models.TemplateData{
@@ -139,8 +131,6 @@ func (m *Repository) PostAvailability(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(fmt.Sprintf("start date is %s and end date is %s", start, end)))
 }
 
-
-
 // Rooms renders the room page
 func (m *Repository) Rooms(w http.ResponseWriter, r *http.Request) {
 	render.RenderTemplate(w, r, "rooms.page.html", &models.TemplateData{})
@@ -156,9 +146,6 @@ func (m *Repository) Majors(w http.ResponseWriter, r *http.Request) {
 	render.RenderTemplate(w, r, "majors.page.html", &models.TemplateData{})
 }
 
-
-
-
 type jsonResponse struct {
 	OK      bool   `json:"ok"`
 	Message string `json:"message"`
@@ -173,7 +160,7 @@ func (m *Repository) AvailabilityJSON(w http.ResponseWriter, r *http.Request) {
 
 	out, err := json.MarshalIndent(jsonResponse, "", "    ")
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		helpers.ServerError(w, err)
 		return
 	}
 
