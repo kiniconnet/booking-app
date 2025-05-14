@@ -49,14 +49,22 @@ func main() {
 
 func run() (*drivers.DB, error) {
 
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
+	var DATABASE_URL string
+	if app.InProduction {
+		DATABASE_URL = os.Getenv("DATABASE_URL")
+		if DATABASE_URL == "" {
+			log.Fatal("DATABASE_URL is not set in production environment")
+		}
+	} else {
+		err := godotenv.Load()
+		if err != nil {
+			log.Fatal("Error loading .env file")
+		}
 
-	DATABASE_URL := os.Getenv("DATABASE_URL")
-	if DATABASE_URL == "" {
-		log.Fatal("DATABASE_URL is not set")
+		DATABASE_URL = os.Getenv("DATABASE_URL")
+		if DATABASE_URL == "" {
+			log.Fatal("DATABASE_URL is not set")
+		}
 	}
 
 	// what i want to put in session
