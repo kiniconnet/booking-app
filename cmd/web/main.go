@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"time"
+
 	"github.com/joho/godotenv"
 
 	"github.com/alexedwards/scs/v2"
@@ -49,35 +50,32 @@ func main() {
 
 func run() (*drivers.DB, error) {
 
-	var DATABASE_URL string
-	if app.InProduction {
-		DATABASE_URL = os.Getenv("DATABASE_URL")
-		if DATABASE_URL == "" {
-			log.Fatal("DATABASE_URL is not set in production environment")
-		}
-	} else {
-		err := godotenv.Load()
+	if os.Getenv("ENV") != "production" {
+		// Load the .env file if not in production
+		err := godotenv.Load(".env")
 		if err != nil {
-			log.Fatal("Error loading .env file")
-		}
-
-		DATABASE_URL = os.Getenv("DATABASE_URL")
-		if DATABASE_URL == "" {
-			log.Fatal("DATABASE_URL is not set")
+			log.Fatal("Error loading .env file:", err)
 		}
 	}
+
+	DATABASE_URL := os.Getenv("DATABASE_URL")
+	if DATABASE_URL == "" {
+		log.Fatal("DATABASE_URL is not set")
+	}
+	// change this to true when in production
+	app.UseCache = true
+	app.InProduction = true
 
 	// what i want to put in session
 	gob.Register(models.Reservation{})
 	gob.Register(models.Room{})
-	gob.Register(models.User{})	
-	gob.Register(models.Restriction{})	
+	gob.Register(models.User{})
+	gob.Register(models.Restriction{})
 	gob.Register(models.RoomRestriction{})
-	gob.Register(models.Restriction{})	
+	gob.Register(models.Restriction{})
 
 	// change this to true when in production
 	app.InProduction = false
-
 
 	// create a custom logger
 	infoLog = log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)

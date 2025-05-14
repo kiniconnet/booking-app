@@ -144,11 +144,11 @@ func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 		EndDate: endDate,
 		RoomID: roomID,
 		ReservationID: newReservationID,
-		RestrictionID: 1,
+		RestrictionID: 2,
 	}
 
 	err = m.DB.InsertRoomRestriction(restriction)
-	if err != nil{
+	if err != nil {
 		helpers.ServerError(w, err)
 		return
 	}
