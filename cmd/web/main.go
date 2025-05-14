@@ -50,18 +50,19 @@ func main() {
 
 func run() (*drivers.DB, error) {
 
-	if os.Getenv("ENV") != "production" {
-		// Load the .env file if not in production
-		err := godotenv.Load(".env")
-		if err != nil {
-			log.Fatal("Error loading .env file:", err)
-		}
-	}
+	 env := os.Getenv("ENV")
+    if env != "production" {
+        if err := godotenv.Load(".env"); err != nil {
+            log.Fatal("Error loading .env file: ", err)
+        }
+    }
 
-	DATABASE_URL := os.Getenv("DATABASE_URL")
-	if DATABASE_URL == "" {
-		log.Fatal("DATABASE_URL is not set")
-	}
+    // Ensure DATABASE_URL is set
+    databaseURL := os.Getenv("DATABASE_URL")
+    if databaseURL == "" {
+        log.Fatal("FATAL ERROR: DATABASE_URL is not set in the environment")
+    }
+	
 	// change this to true when in production
 	app.UseCache = true
 	app.InProduction = true
