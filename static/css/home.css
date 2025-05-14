@@ -42,6 +42,8 @@
 
 .form-group {
     margin-bottom: 1rem;
+    display: flex;
+    background-color: red;
 }
 
 .form-group label {

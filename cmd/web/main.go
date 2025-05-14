@@ -7,9 +7,11 @@ import (
 	"net/http"
 	"os"
 	"time"
+	"github.com/joho/godotenv"
 
 	"github.com/alexedwards/scs/v2"
 	"github.com/kiniconnect/booking-app/internals/config"
+	"github.com/kiniconnect/booking-app/internals/drivers"
 	"github.com/kiniconnect/booking-app/internals/handlers"
 	"github.com/kiniconnect/booking-app/internals/helpers"
 	"github.com/kiniconnect/booking-app/internals/models"
@@ -26,10 +28,11 @@ var errorLog *log.Logger
 // main is the main function
 func main() {
 
-	err := run()
+	db, err := run()
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer db.SQL.Close()
 
 	fmt.Printf("Starting application on port %s\n", portNumber)
 
@@ -44,12 +47,29 @@ func main() {
 	}
 }
 
-func run() error {
+func run() (*drivers.DB, error) {
 
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
+	DATABASE_URL := os.Getenv("DATABASE_URL")
+	if DATABASE_URL == "" {
+		log.Fatal("DATABASE_URL is not set")
+	}
+
+	// what i want to put in session
 	gob.Register(models.Reservation{})
+	gob.Register(models.Room{})
+	gob.Register(models.User{})	
+	gob.Register(models.Restriction{})	
+	gob.Register(models.RoomRestriction{})
+	gob.Register(models.Restriction{})	
 
 	// change this to true when in production
 	app.InProduction = false
+
 
 	// create a custom logger
 	infoLog = log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
@@ -66,22 +86,31 @@ func run() error {
 
 	app.Session = session
 
+	// connect to the database
+	log.Println("Connecting to database...")
+	db, err := drivers.ConnectToSQL(DATABASE_URL)
+	if err != nil {
+		log.Fatal("cannot connect to database")
+	}
+
+	fmt.Println("Connected to database")
+
 	tc, err := render.CreateTemplateCache()
 	if err != nil {
 		log.Fatal("cannot create template cache")
-		return err
+		return nil, err
 	}
 
 	app.TemplateCache = tc
 	app.UseCache = false
 
-	repo := handlers.NewRepo(&app)
+	repo := handlers.NewRepo(&app, db)
 	handlers.NewHandlers(repo)
 
-	render.NewTemplates(&app)
+	render.NewRenderer(&app)
 	helpers.NewHelpers(&app)
 
 	log.Println("Application started successfully")
 
-	return nil
+	return db, nil
 }

@@ -1,75 +1,356 @@
-{{template "base" .}}
-
+{{template "base" .}} 
 {{define "css"}}
-<link rel="stylesheet" href="/static/css/rooms.css">
-    <style>
-        .label-error{
-            color: red;
-            font-size: 0.8em;
-        }
-    </style>
-{{end}}
+<style>
+  :root {
+    --primary: #03624c;
+    --primary-light: #2cc295;
+    --gray-light: #f5f7fa;
+    --gray-medium: #e1e5eb;
+    --gray-dark: #64748b;
+    --text-color: #1e293b;
+    --error-color: #dc2626;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
 
-{{define "content"}}
+  /* Modern container with animated gradient border */
+  .reservation-container {
+    max-width: 800px;
+    margin: 3rem auto;
+    padding: 0 1rem;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
 
-{{$title := "Make Reservation"}}
-{{$subtitle := "Complete your booking in just a few steps"}}
+  /* Animated header */
+  .reservation-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .reservation-header h1 {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+
+  .reservation-header h4 {
+    font-size: 1.2rem;
+    color: var(--gray-dark);
+    font-weight: 400;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* Modern card with subtle floating animation */
+  .reservation-form {
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+    transition: var(--transition);
+    animation: float 6s ease-in-out infinite;
+    border: 1px solid rgba(3, 98, 76, 0.1);
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  /* Enhanced form group with focus effects */
+  .form-group {
+    margin-bottom: 2rem;
+    position: relative;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+    color: var(--text-color);
+    font-size: 0.95rem;
+    transition: var(--transition);
+  }
+
+  .form-control {
+    width: 100%;
+    display: block;
+    padding: 1rem 1.25rem;
+    font-size: 1rem;
+    border: 1px solid var(--gray-medium);
+    border-radius: 12px;
+    transition: var(--transition);
+    background-color: var(--gray-light);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+
+  .form-control:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(3, 98, 76, 0.1);
+    background-color: white;
+    transform: translateY(-2px);
+  }
+
+  /* Enhanced error styling */
+  .label-error {
+    color: var(--error-color);
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    display: block;
+    animation: shake 0.5s ease-in-out;
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-5px); }
+    40%, 80% { transform: translateX(5px); }
+  }
+
+  /* Modern divider */
+  .form-divider {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gray-medium), transparent);
+    margin: 2.5rem 0;
+    position: relative;
+  }
+
+  .form-divider::after {
+    content: "or";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 0 1rem;
+    color: var(--gray-dark);
+    font-size: 0.9rem;
+  }
+
+  /* Animated submit button */
+  .submit-btn {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 1.25rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: var(--transition);
+    width: 100%;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(3, 98, 76, 0.3), 0 2px 4px -1px rgba(3, 98, 76, 0.2);
+  }
+
+  .submit-btn:hover {
+    background-color: var(--primary);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 15px -3px rgba(3, 98, 76, 0.3), 0 4px 6px -2px rgba(3, 98, 76, 0.2);
+  }
+
+  .submit-btn:active {
+    transform: translateY(0);
+  }
+
+  .submit-btn::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(30deg);
+    transition: var(--transition);
+  }
+
+  .submit-btn:hover::after {
+    left: 100%;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .reservation-container {
+      padding: 0 1.5rem;
+      margin: 2rem auto;
+    }
+
+    .reservation-header h1 {
+      font-size: 2rem;
+    }
+
+    .reservation-header h4 {
+      font-size: 1.1rem;
+    }
+
+    .reservation-form {
+      padding: 2rem 1.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .reservation-header h1 {
+      font-size: 1.8rem;
+    }
+
+    .reservation-header h4 {
+      font-size: 1rem;
+    }
+
+    .form-control {
+      padding: 0.9rem 1rem;
+    }
+
+    .submit-btn {
+      padding: 1.1rem;
+    }
+  }
+</style>
+{{end}} 
+
+{{define "content"}} 
+{{$title := "Make Reservation"}} 
+{{$subtitle := "Complete your booking in just a few steps"}} 
 {{$res := index .Data "reservation"}}
- 
- 
- 
+
 <div class="reservation-container">
-    <div class="reservation-header">
-        <h1>{{ $title }}</h1>
-        <h4>{{$subtitle}}</h4>
+  <div class="reservation-header">
+    <h1>{{ $title }}</h1>
+    <h4>{{$subtitle}}</h4>
+  </div>
+
+  <form method="post" action="/make-reservation" class="reservation-form" novalidate>
+    <input type="hidden" name="csrf_token" value="{{.CSRFToken}}" />
+
+    <div class="form-group">
+      <label for="first_name">First Name</label>
+      {{with .Form.Errors.Get "first_name"}}
+      <span class="label-error">{{.}}</span>
+      {{end}}
+      <input
+        class="form-control"
+        id="first_name"
+        autocomplete="given-name"
+        type="text"
+        name="first_name"
+        value="{{$res.FirstName}}"
+        required
+      />
     </div>
 
-    <form method="post" action="/make-reservation" class="reservation-form" novalidate>
-        <input type="hidden" name="csrf_token" value="{{.CSRFToken}}">
-        
-        <div class="form-group">
-            <label for="first_name">First Name</label>
-            {{with .Form.Errors.Get "first_name"}}
-                <span class="label-error">{{.}}</span>
-            {{end}}
-            <input class="form-control"
-                   id="first_name" autocomplete="given-name" type='text'
-                   name='first_name' value="{{$res.FirstName}}" required>
-        </div>
+    <div class="form-group">
+      <label for="last_name">Last Name</label>
+      {{with .Form.Errors.Get "last_name"}}
+      <span class="label-error">{{.}}</span>
+      {{end}}
+      <input
+        class="form-control"
+        id="last_name"
+        autocomplete="family-name"
+        type="text"
+        name="last_name"
+        value="{{$res.LastName}}"
+        required
+      />
+    </div>
 
-        <div class="form-group">
-            <label for="last_name">Last Name</label> 
-            {{with .Form.Errors.Get "last_name"}}
-                <span class="label-error">{{.}}</span>
-            {{end}}
-            <input class="form-control"
-                   id="last_name" autocomplete="family-name" type='text'
-                   name='last_name' value="{{$res.LastName}}" required>
-        </div>
+    <div class="form-group">
+      <label for="start_date">Start Date</label>
+      <input
+        class="form-control"
+        id="start_date"
+        type="text" 
+        name="start_date"
+        required
+      />
+    </div>
 
-        <div class="form-group">
-            <label for="email">Email Address</label>
-            {{with .Form.Errors.Get "email"}}
-                <span class="label-error">{{.}}</span>
-            {{end}}
-            <input class="form-control" id="email"
-                   autocomplete="email" type='email'
-                   name='email' value="{{$res.Email}}" required>
-        </div>
+    <div class="form-group">
+      <label for="end_date">End Date</label>
+       
+      <input
+        class="form-control"
+        id="end_date" 
+        type="text" 
+        name="end_date" 
+        required
+      />
+    </div>
 
-        <div class="form-group">
-            <label for="phone">Phone Number</label>
-            {{with .Form.Errors.Get "phone"}}
-                <span class="label-error">{{.}}</span>
-            {{end}}
-            <input class="form-control" id="phone"
-                   autocomplete="tel" type='tel'
-                   name='phone' value="{{$res.Phone}}" required>
-        </div>
+    <div class="form-group">
+      
+      <input
+        class="form-control"
+        id="room_id" 
+        autocomplete="text" 
+        type="hidden" 
+        name="room_id" 
+        value="1"
+        required
+      />
+    </div> 
 
-        <hr class="form-divider">
-        
-        <button type="submit" class="submit-btn">Complete Reservation</button>
-    </form>
+
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      {{with .Form.Errors.Get "email"}}
+      <span class="label-error">{{.}}</span>
+      {{end}}
+      <input
+        class="form-control"
+        id="email"
+        autocomplete="email"
+        type="email"
+        name="email"
+        value="{{$res.Email}}"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone Number</label>
+      {{with .Form.Errors.Get "phone"}}
+      <span class="label-error">{{.}}</span>
+      {{end}}
+      <input
+        class="form-control"
+        id="phone"
+        autocomplete="tel"
+        type="tel"
+        name="phone"
+        value="{{$res.Phone}}"
+        required
+      />
+    </div>
+
+    <hr class="form-divider" />
+
+    <button type="submit" class="submit-btn">Complete Reservation →</button>
+  </form>
 </div>
 {{end}}
