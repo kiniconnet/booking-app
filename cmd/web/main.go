@@ -2,13 +2,12 @@ package main
 
 import (
 	"encoding/gob"
+	"flag"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
 	"time"
-
-	"github.com/joho/godotenv"
 
 	"github.com/alexedwards/scs/v2"
 	"github.com/kiniconnect/booking-app/internals/config"
@@ -50,22 +49,6 @@ func main() {
 
 func run() (*drivers.DB, error) {
 
-	 env := os.Getenv("ENV")
-    if env != "production" {
-        if err := godotenv.Load(".env"); err != nil {
-            log.Fatal("Error loading .env file: ", err)
-        }
-    }
-
-    // Ensure DATABASE_URL is set
-    databaseURL := os.Getenv("DATABASE_URL")
-    if databaseURL == "" {
-        log.Fatal("FATAL ERROR: DATABASE_URL is not set in the environment")
-    }
-	
-	// change this to true when in production
-	app.UseCache = true
-	app.InProduction = true
 
 	// what i want to put in session
 	gob.Register(models.Reservation{})
@@ -75,8 +58,29 @@ func run() (*drivers.DB, error) {
 	gob.Register(models.RoomRestriction{})
 	gob.Register(models.Restriction{})
 
+	// Read flag
+	inProduction := flag.Bool("inproduction", true, "Run the application in production mode")
+	useCache := flag.Bool("cache", true, "Use cache for templates")
+	 dbURL := flag.String("dburl", "", "Database connection URL")
+
+	// Parse command line flags
+	flag.Parse()
+
+	if *dbURL == "" {
+		fmt.Println("Database URL is required")
+		flag.Usage()
+		os.Exit(1)
+	}
+
+	fmt.Println("Using connection string:", *dbURL)
+
+
+ 
 	// change this to true when in production
-	app.InProduction = false
+	app.InProduction = *inProduction
+	app.UseCache = *useCache  
+	app.InProduction = *inProduction
+	app.UseCache = *useCache
 
 	// create a custom logger
 	infoLog = log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
@@ -95,7 +99,7 @@ func run() (*drivers.DB, error) {
 
 	// connect to the database
 	log.Println("Connecting to database...")
-	db, err := drivers.ConnectToSQL(DATABASE_URL)
+	 db, err := drivers.ConnectToSQL(*dbURL)
 	if err != nil {
 		log.Fatal("cannot connect to database")
 	}
@@ -109,7 +113,7 @@ func run() (*drivers.DB, error) {
 	}
 
 	app.TemplateCache = tc
-	app.UseCache = false
+	 
 
 	repo := handlers.NewRepo(&app, db)
 	handlers.NewHandlers(repo)
