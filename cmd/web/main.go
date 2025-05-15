@@ -67,17 +67,18 @@ func run() (*drivers.DB, error) {
 	// Read flag
 	inProduction := flag.Bool("inproduction", true, "Run the application in production mode")
 	useCache := flag.Bool("cache", true, "Use cache for templates")
-
+	dbURL := flag.String("dburl", os.Getenv("DATABASE_URL"), "Database connection string")
 	// Parse command line flags
 	flag.Parse()
 
-	// Determine the database URL source
-	dbURL := os.Getenv("DATABASE_URL")
-	if dbURL == "" {
+
+	finalDBURL := *dbURL
+
+	if finalDBURL == "" {
 		log.Fatal("DATABASE_URL is not set")
 	}
 	// Set the database URL based on the environment
-	fmt.Println("Using connection string:", dbURL)
+	fmt.Println("Using connection string:", finalDBURL)
 
 	// change this to true when in production
 	app.InProduction = *inProduction
@@ -100,7 +101,7 @@ func run() (*drivers.DB, error) {
 
 	// connect to the database
 	log.Println("Connecting to database...")
-	db, err := drivers.ConnectToSQL(dbURL)
+	db, err := drivers.ConnectToSQL(*dbURL)
 	if err != nil {
 		log.Fatal("cannot connect to database")
 	}
