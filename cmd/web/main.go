@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/alexedwards/scs/v2"
+	"github.com/joho/godotenv"
 	"github.com/kiniconnect/booking-app/internals/config"
 	"github.com/kiniconnect/booking-app/internals/drivers"
 	"github.com/kiniconnect/booking-app/internals/handlers"
@@ -49,7 +50,12 @@ func main() {
 
 func run() (*drivers.DB, error) {
 
-	 
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
+	
 	// what i want to put in session
 	gob.Register(models.Reservation{})
 	gob.Register(models.Room{})
