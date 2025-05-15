@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/alexedwards/scs/v2"
+	"github.com/joho/godotenv"
 	"github.com/kiniconnect/booking-app/internals/config"
 	"github.com/kiniconnect/booking-app/internals/drivers"
 	"github.com/kiniconnect/booking-app/internals/handlers"
@@ -49,6 +50,10 @@ func main() {
 
 func run() (*drivers.DB, error) {
 
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
 
 	// what i want to put in session
 	gob.Register(models.Reservation{})
@@ -61,7 +66,7 @@ func run() (*drivers.DB, error) {
 	// Read flag
 	inProduction := flag.Bool("inproduction", true, "Run the application in production mode")
 	useCache := flag.Bool("cache", true, "Use cache for templates")
-	 dbURL := flag.String("dburl", "", "Database connection URL")
+	dbURL := flag.String("dburl", "", "Database connection URL")
 
 	// Parse command line flags
 	flag.Parse()
@@ -72,13 +77,17 @@ func run() (*drivers.DB, error) {
 		os.Exit(1)
 	}
 
+	if app.InProduction {
+		dbURLProduction := os.Getenv("DATABASE_URL")
+		if dbURLProduction == "" {
+			panic("DATABASE_URL environment variable is not set")
+		}
+		dbURL = &dbURLProduction
+	}
+
 	fmt.Println("Using connection string:", *dbURL)
 
-
- 
 	// change this to true when in production
-	app.InProduction = *inProduction
-	app.UseCache = *useCache  
 	app.InProduction = *inProduction
 	app.UseCache = *useCache
 
@@ -99,7 +108,7 @@ func run() (*drivers.DB, error) {
 
 	// connect to the database
 	log.Println("Connecting to database...")
-	 db, err := drivers.ConnectToSQL(*dbURL)
+	db, err := drivers.ConnectToSQL(*dbURL)
 	if err != nil {
 		log.Fatal("cannot connect to database")
 	}
@@ -113,7 +122,6 @@ func run() (*drivers.DB, error) {
 	}
 
 	app.TemplateCache = tc
-	 
 
 	repo := handlers.NewRepo(&app, db)
 	handlers.NewHandlers(repo)
