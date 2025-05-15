@@ -55,7 +55,7 @@ func run() (*drivers.DB, error) {
 		log.Fatal("Error loading .env file")
 	}
 
-	
+
 	// what i want to put in session
 	gob.Register(models.Reservation{})
 	gob.Register(models.Room{})
@@ -67,30 +67,17 @@ func run() (*drivers.DB, error) {
 	// Read flag
 	inProduction := flag.Bool("inproduction", true, "Run the application in production mode")
 	useCache := flag.Bool("cache", true, "Use cache for templates")
-	dbURL := flag.String("dburl", "", "Database connection URL")
 
 	// Parse command line flags
 	flag.Parse()
 
 	// Determine the database URL source
-	var finalDBURL string
-	if *inProduction {
-		// In production (Leapcell), use environment variable
-		finalDBURL = os.Getenv("DATABASE_URL")
-		if finalDBURL == "" {
-			panic("DATABASE_URL environment variable is required in production mode")
-		}
-	} else {
-		// In development, use command-line flag
-		finalDBURL = *dbURL
-		if finalDBURL == "" {
-			fmt.Println("In development mode, --dburl flag is required")
-			flag.Usage()
-			os.Exit(1)
-		}
+	dbURL := os.Getenv("DATABASE_URL")
+	if dbURL == "" {
+		log.Fatal("DATABASE_URL is not set")
 	}
-
-	fmt.Println("Using connection string:", finalDBURL)
+	// Set the database URL based on the environment
+	fmt.Println("Using connection string:", dbURL)
 
 	// change this to true when in production
 	app.InProduction = *inProduction
@@ -113,7 +100,7 @@ func run() (*drivers.DB, error) {
 
 	// connect to the database
 	log.Println("Connecting to database...")
-	db, err := drivers.ConnectToSQL(*dbURL)
+	db, err := drivers.ConnectToSQL(dbURL)
 	if err != nil {
 		log.Fatal("cannot connect to database")
 	}
