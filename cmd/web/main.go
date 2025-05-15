@@ -10,7 +10,6 @@ import (
 	"time"
 
 	"github.com/alexedwards/scs/v2"
-	"github.com/joho/godotenv"
 	"github.com/kiniconnect/booking-app/internals/config"
 	"github.com/kiniconnect/booking-app/internals/drivers"
 	"github.com/kiniconnect/booking-app/internals/handlers"
@@ -50,11 +49,7 @@ func main() {
 
 func run() (*drivers.DB, error) {
 
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
-
+	 
 	// what i want to put in session
 	gob.Register(models.Reservation{})
 	gob.Register(models.Room{})
@@ -71,20 +66,25 @@ func run() (*drivers.DB, error) {
 	// Parse command line flags
 	flag.Parse()
 
-	if *dbURL == "" {
-		fmt.Println("Database URL is required")
-		flag.Usage()
-		os.Exit(1)
-	}
-
-	if app.InProduction {
-		dbURL := os.Getenv("DATABASE_URL")
-		if dbURL == "" {
-			panic("DATABASE_URL environment variable is not set")
+	// Determine the database URL source
+	var finalDBURL string
+	if *inProduction {
+		// In production (Leapcell), use environment variable
+		finalDBURL = os.Getenv("DATABASE_URL")
+		if finalDBURL == "" {
+			panic("DATABASE_URL environment variable is required in production mode")
+		}
+	} else {
+		// In development, use command-line flag
+		finalDBURL = *dbURL
+		if finalDBURL == "" {
+			fmt.Println("In development mode, --dburl flag is required")
+			flag.Usage()
+			os.Exit(1)
 		}
 	}
 
-	fmt.Println("Using connection string:", *dbURL)
+	fmt.Println("Using connection string:", finalDBURL)
 
 	// change this to true when in production
 	app.InProduction = *inProduction
