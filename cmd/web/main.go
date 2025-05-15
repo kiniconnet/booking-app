@@ -78,11 +78,10 @@ func run() (*drivers.DB, error) {
 	}
 
 	if app.InProduction {
-		dbURLProduction := os.Getenv("DATABASE_URL")
-		if dbURLProduction == "" {
+		dbURL := os.Getenv("DATABASE_URL")
+		if dbURL == "" {
 			panic("DATABASE_URL environment variable is not set")
 		}
-		dbURL = &dbURLProduction
 	}
 
 	fmt.Println("Using connection string:", *dbURL)
